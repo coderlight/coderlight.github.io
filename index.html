@@ -1,15 +1,27 @@
-<!doctype html>
-<html lang="en" ng-app="Pathfinder">
+<!DOCTYPE html>
+<html lang="en" ng-app="Landing">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Map-A-Seat</title>
-  <link rel="icon" href="img/favicon.ico">
-  <link href="lib/bootstrap-css/css/bootstrap.min.css" rel="stylesheet">
-  <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <meta name="description" content="">
+  <meta name="author" content="MapASeat">
+  <link rel="shortcut icon" href="img/favicon.png">
+
+  <title>Map-a-Seat - Interactive location Finder</title>
+
+  <link href="lib/bootstrap-css/css/bootstrap.css" rel="stylesheet">
+  <link href="lib/bootstrap-css/css/bootstrap-theme.css" rel="stylesheet">
+
   <link href="css/main.css" rel="stylesheet">
-  <link href="css/app.css" rel="stylesheet">
+  <link href="css/landing.css" rel="stylesheet">
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+  <![endif]-->
+
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -21,96 +33,201 @@
 
   </script>
   <script>
-    window.stripe_key = "{{ stripe_pub }}";
+    //window.stripe_key = "{{ stripe_pub }}";
   </script>
 </head>
-{% raw %}
-<body>
-  <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="navbar-header">
-      <a href="#/" class="navbar-brand">Map-A-Seat</a>
-      <button class="navbar-toggle collapsed" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
-        <span class="sr-only">Menu</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+<body ng-controller="LandingController">
+
+  <!-- Fixed navbar -->
+  <div class="navbar navbar-fixed-top landing-page-navbar">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <div class="navbar-brand">
+          <a href="index.html">
+            <img src="img/logo.png" alt="logo">
+          </a>
+        </div>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="" ng-click="scrollTo('details')">Details</a></li>
+          <li><a href="" ng-click="scrollTo('price')">Pricing</a></li>
+          <li><button type="button" class="btn btn-default navbar-btn log-in-btn" ng-click="openLoginModal()">Log in</button></li>
+        </ul>
+      </div>
     </div>
-    <nav class="navbar-collapse bs-navbar-collapse collapse" ng-class="!navCollapsed && 'in'">
-      <ul class="nav navbar-nav">
-        <!-- <li ng-class="{active: activetab === 'charts'}">
-          <a href="#/charts">Name Charts</a>
-        </li> -->
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown navbar-dropdown-user">
-          <p class="navbar-text">
-            {{ auth.user.name }}
-          </p>
-          <button class="btn btn-default navbar-btn navbar-btn-user dropdown-toggle"} >
-            <span class="sr-only">Settings</span>
-            <span class="glyphicon glyphicon-user"></span>
-          </button>
-          <ul class="dropdown-menu" ng-controller="RoleController">
-            <!-- <li ng-show="isAdminUser()"><a href="#/setup">Setup</a></li> -->
-            <li ng-show="isAdminUser()"><a href="#/useradmin">User Admin</a></li>
-            <li ng-show="isAdminUser()"><a href="#/billing">Billing Page</a></li>
-            <!-- <li><a href="#/settings">Settings</a></li> -->
-            <li ng-show="isAdminUser()" class="divider"></li>
-            <li><a href="/logout">Log Out</a></li>
-          </ul>
-        </li>
-      </ul>
-    </nav>
   </div>
-  <hr>
-  <div class="content container-fluid" ng-view></div>
+
+  <!--<div id="header">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <h1>Making life simpler</h1>
+          <h2 class="subtitle">Doing something, about the silly everyday obstacles to simplicity</h2>
+          <form class="form-inline signup" ng-submit="requestInfo()" role="form">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <input id="request-email" type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter your email address">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <button type="submit" ng-hide="requestLoading" class="btn btn-theme">Get More Info</button>
+                <div pf-loading="requestLoading"></div>
+              </div>
+            </div>
+          </form>
+
+          <div class="row cta">
+            <div class="col-lg-4 col-lg-offset-4">
+              <button class="btn btn-lg btn-block btn-primary" ng-click="openRegisterModal()">Get It Now!</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <iframe src="//player.vimeo.com/video/88548682?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff" width="480" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>-->
+  
+  
+  <div id="header">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 middle-content">
+          <h1>Making life simpler.</h1>
+          <h2 class="subtitle">Doing something, about the silly everyday obstacles to simplicity</h2>
+          <div class="btn-container"><button class="btn btn-block" ng-click="openRegisterModal()">Sign up</button></div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 middle-content">
+          <img src="img/video.jpg" class="header-video" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="main-content">
+    <div class="container" id="details">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="quote">
+            <h1 class="quote-title">". . .But having grown to more than 600 workers, the company is facing a new problem: no one can remember who sits where."</h1>
+            <div class="quote-source">Source: The Wall Street Journal (october 8, 2013)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          Office Canvass takes a simple approach to solve a silly problem that we all have from time to time, whether we’re
+          a new-employee looking for the restroom, we’re looking for a colleague that moved their desk, or that conference
+          room that is in an area we don’t often explore. Our application provides you with a user experience that is
+          straight forward, give it a try.
+        </div>
+      </div>
+    </div>
+
+    <div class="container features">
+      <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 feature">
+          <div class="feature-cover">
+            <img src="img/feature-img1.jpg" alt="feature 1">
+          </div>
+          <div class="feature-title">Where does that person sit, again?</div>
+          <div class="feature-content">
+            Only know part of a person’s name - we’ve got you covered. Just type part of the person’s name and we’ll
+            display a call out where they sit, plus bring up useful information if they happen to be out of the office.
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 feature">
+          <div class="feature-cover">
+            <img src="img/feature-img2.jpg" alt="feature 2">
+          </div>
+          <div class="feature-title">Can’t recall a name?</div>
+          <div class="feature-content">
+            Sometime you don’t recall the name of the person who sits by near you, but you’ve already asked them 3-times
+            what their name is? Well, just hover over the location where they sit and you’ll be given their name,
+            simple, just like that.  
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 feature">
+          <div class="feature-cover">
+            <img src="img/feature-img3.jpg" alt="feature 3">
+          </div>
+          <div class="feature-title">Security</div>
+          <div class="feature-content">
+            We are a cloud application built using secure technologies, such as Amazon Web Services, so there’s no need
+            to stress about your data. Your information won’t be shared or sold to marketer to make a quick buck. Our
+            aim is to provide you with a simple, reliable and secure tool that your organization can use.
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div id="price" class="pricing-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 middle-content text-center">
+            <h3>Pricing</h3>
+            <p>
+              We’re serious about giving you value - we provide you FREE 2-week trial period. After 2-weeks we charge you ONLY
+              $10/month for use of the platform. You read that correctly, we want to provide you a tool that is highly useful
+              at a price that eliminates any hesitation to using our service. There is no catch, just #10/month for unlimited
+              number of users, office locations.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="sign-up-attraction-section">
+      <div class="container">
+        <div class="row center-content">
+          <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+            <h3>Why should you care?</h3>
+            <p>
+              People work with people, and providing those that work with you a simple experience to reduce the small
+              frustration of finding that pinter name near Bob’s desk, or getting a reminder of the person’s name that
+              sits near so-and-so, makes it a bit easier to get things done. Whether you’re a professor giving a lecture
+              in a classroom, a facilities manager of a large complex, or someone in an office just trying to find a
+              printer - this application can help, give it a try.
+            </p>
+          </div>
+          <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 text-center">
+            <div class="btn-container"><button class="btn btn-sign-up" ng-click="openRegisterModal()">Sign up</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div id="footer">
+    <div>Copyright © 2017 - Office Canvass</div>
+  </div>
+
   <script src="lib/jquery/dist/jquery.js"></script>
   <script src="lib/jquery-ui/ui/jquery-ui.js"></script>
   <script src="lib/lodash/dist/lodash.js"></script>
-  <script src="lib/ng-file-upload/angular-file-upload-shim.min.js"></script>
   <script src="lib/angular/angular.js"></script>
-  <script src="lib/angular-resource/angular-resource.js"></script>
-  <script src="lib/angular-route/angular-route.js"></script>
   <script src="lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-  <script src="lib/angular-ui-date/src/date.js"></script>
   <script src="lib/bootstrap-css/js/bootstrap.min.js"></script>
   <script src="lib/bootbox/bootbox.js"></script>
-  <script src="lib/ng-file-upload/angular-file-upload.min.js"></script>
   <script src="lib/angular-payments/lib/angular-payments.js"></script>
   <script src="https://js.stripe.com/v2/"></script>
 
-  <script src="js/app.js"></script>
+  <script src="js/landing.js"></script>
   <script src="js/directives/directives.js"></script>
   <script src="js/services/services.js"></script>
-  <script src="js/controllers/main-controller.js"></script>
-  <script src="js/controllers/building-controller.js"></script>
-  <script src="js/controllers/configure-controller.js"></script>
-  <script src="js/controllers/setup-controller.js"></script>
-  <script src="js/controllers/user-admin-controller.js"></script>
-  <script src="js/controllers/role-controller.js"></script>
-  <script src="js/controllers/billing-controller.js"></script>
-
-  <script src="lib/mapper.js"></script>
-
-  <script>
-  // Include the UserVoice JavaScript SDK (only needed once on a page)
-  UserVoice=window.UserVoice||[];(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/SWU52PWPx7zW2sCpbSdGpQ.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})();
-
-  // Set colors
-  UserVoice.push(['set', {
-    accent_color: '#e2753a',
-    trigger_color: 'white',
-    trigger_background_color: '#e2753a'
-  }]);
-
-  // Add default trigger to the bottom-right corner of the window:
-  UserVoice.push(['addTrigger', { mode: 'contact', trigger_position: 'bottom-right' }]);
-
-  // Autoprompt for Satisfaction and SmartVote (only displayed under certain conditions)
-  UserVoice.push(['autoprompt', {}]);
-  </script>
-
 </body>
 </html>
-{% endraw %}
