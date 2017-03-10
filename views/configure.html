@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4">
+      <a class="btn btn-lg" ng-click="zoomOut()"><i class="fa fa-search-minus"></i></a> Zoom
+      <a class="btn btn-lg" ng-click="zoomIn()"><i class="fa fa-search-plus"></i></a>
+    </div>
+    <div class="col-sm-4">
+      <div pf-loading="addLocLoading"></div>
+    </div>
+  </div>
+  <div class="row padding">
+    <div class="col-lg-12">
+      <div id="map" class="map configure" ng-click="addLoc($event)" style="
+      width:{{width}}px;">
+        <img ng-cloak ng-src="{{mapImage}}" on-image-load="setupImage()" width="{{width}}px">
+        <a ng-repeat="seat in seats" id="seat-{{seat.id}}" class="seat active" style="top:{{seat.y_coordinate -1000/image.height}}%;left:{{seat.x_coordinate -1000/width}}%;"></a>
+      </div>
+    </div>
+  </div>
+</div>

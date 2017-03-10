@@ -1,0 +1,18 @@
+<div ng-controller="BillingController">
+    <div class="page-header">
+        <h1>Billing page</h1>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <p>Status: <b>{{ info.status }}</b></p>
+                <p>Card: <b>{{ info.card }}</b></p>
+                <p>{{ info.status | capitalize}} from <b>{{ info.curs }}</b> to <b>{{ info.cure }}</b></p>
+                <p class="text-danger">
+                    <button type="submit" class="btn btn-danger" ng-click="unsubscribe()">Cancel Subscription</button>
+                    Danger! This will cancel your account.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

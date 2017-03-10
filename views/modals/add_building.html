@@ -1,0 +1,38 @@
+<div class="modal-header">
+  <button type="button" class="close" ng-click="cancel()">&times;</button>
+  <h4 class="modal-title">Add a Building</h4>
+</div>
+<div class="modal-body">
+  <div class="alert alert-danger" ng-show="errorMessage" ng-bind-html-unsafe="errorMessage">
+  </div>
+  <form role="form" novalidate>
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Name" tooltip="Ex. Corporate Headquarters" tooltip-placement="left" ng-model="building.name" required>
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Street Address" tooltip="Ex. 177 Huntington Ave." tooltip-placement="left" ng-model="building.street" required>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="City" ng-model="building.city">
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="State" ng-model="building.state" required>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Zip Code" ng-model="building.zipcode">
+        </div>
+      </div>
+    </div>
+  </form>
+  <div pf-loading="buildingLoading"></div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" ng-click="cancel()">Close</button>
+  <button type="button" class="btn btn-primary" ng-click="ok()">Add Building</button>
+</div>

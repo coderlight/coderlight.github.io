@@ -1,0 +1,19 @@
+<div class="modal-header">
+  <button type="button" class="close" ng-click="cancel()">&times;</button>
+  <h4 class="modal-title">Login to Officecanvass Now</h4>
+</div>
+<div class="modal-body">
+  <form role="form" novalidate ng-submit="onSubmitLogin(email, pass)">
+    <div class="form-group" ng-class="{'has-error': login.failed}">
+      <input id="email" type="text" class="form-control" placeholder="Email" name="email" ng-model="email">
+    </div>
+    <div class="form-group" ng-class="{'has-error': login.failed}">
+      <input id="password" type="password" class="form-control" placeholder="Password" name="password" ng-model="pass">
+    </div>
+  </form>
+  <div pf-loading="loginLoading"></div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" ng-click="loginPopupInstance.close();">Close</button>
+  <button type="submit" class="btn btn-primary" ng-click="onSubmitLogin(email, pass)">Login</button>
+</div>

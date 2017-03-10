@@ -1,0 +1,27 @@
+<div class="modal-header">
+  <button type="button" class="close" ng-click="cancel()">&times;</button>
+  <h4 class="modal-title">Add a Floor</h4>
+</div>
+<div class="modal-body">
+  <div class="alert alert-danger" ng-show="errorMessage" ng-bind-html-unsafe="errorMessage">
+  </div>
+  <form role="form" novalidate>
+    <div class="row">
+      <div class="col-sm-9">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Name" ng-model="floor.name" required>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <input type="number" class="form-control" placeholder="Floor Number" tooltip="Ex. 6" tooltip-placement="left" ng-model="floor.floorNum" required>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div pf-loading="floorLoading"></div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" ng-click="cancel()">Close</button>
+  <button type="button" class="btn btn-primary" ng-click="ok()">Add Floor</button>
+</div>

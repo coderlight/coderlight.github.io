@@ -1,0 +1,32 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()">&times;</button>
+    <h4 class="modal-title">Card Details</h4>
+</div>
+<form stripe-form="stripeCallback" class="form-horizontal">
+    <div class="modal-body">
+        <div class="alert alert-danger" ng-show="errorMessage" ng-bind-html-unsafe="errorMessage">
+        </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">Card Number</label>
+                <div class="col-sm-6">
+                    <input ng-model="number" class="form-control" payments-format="card"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">Expiration</label>
+                <div class="col-sm-6">
+                    <input ng-model="expiry" class="form-control" payments-format="expiry"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">CVC</label>
+                <div class="col-sm-6">
+                    <input ng-model="cvc" class="form-control" payments-format="cvc"/>
+                </div>
+            </div>
+        <div pf-loading="addCardLoading"></div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" ng-click="ok()" class="btn btn-success">Start 14 Day Trial</button>
+    </div>
+</form>

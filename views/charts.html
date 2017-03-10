@@ -1,0 +1,16 @@
+<div class="container-fluid">
+  <div class="col-sm-5" ng-hide="user">
+    <div class="form-group">
+      <div class="input-group">
+        <input class="form-control input-lg" type="text" placeholder="Search" ng-model="searchText">
+        <span class="input-group-addon">{{ (users|filter:searchText).length }} Carbonista(s)</span>
+      </div>
+    </div>
+    <h2>Name</h2>
+    <div class="users">
+      <ul ng-repeat="carbonista in users | filter:searchText | orderBy:'name'" id="{{carbonista.id}}" class="carbonista">
+        <li>{{ carbonista.name }}</li>
+      </ul>
+    </div>
+  </div>
+</div>

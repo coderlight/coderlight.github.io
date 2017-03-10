@@ -1,0 +1,19 @@
+<div class="modal-header">
+  <button type="button" class="close" ng-click="cancel()">&times;</button>
+  <h4 class="modal-title">Upload a Floor Plan</h4>
+</div>
+<div class="modal-body">
+  <div class="alert alert-danger" ng-show="errorMessage" ng-bind-html-unsafe="errorMessage">
+  </div>
+  <form role="form" validate>
+    <div class="form-group">
+      <input class="form-control" type="file" ng-file-select="setFiles($files)" accept="image/png,image/jpg,image/jpeg,image/bmp,image/gif" required>
+      <p class="help-block">Upload a .jpg, .jpeg, .png, .gif, or .bmp of your floor plan.</p>
+    </div>
+  </form>
+  <progressbar ng-show="addFloorMapLoading" class="progress-striped active" value="percent">{{percent}}%</progressbar>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" ng-click="cancel()">Close</button>
+  <button type="button" class="btn btn-primary" ng-click="ok($files)">Upload Floor Plan</button>
+</div>

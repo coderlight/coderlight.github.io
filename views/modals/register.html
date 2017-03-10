@@ -1,0 +1,34 @@
+<div class="modal-header">
+  <button type="button" class="close" ng-click="cancel()">&times;</button>
+  <h4 class="modal-title">Get Officecanvass Now</h4>
+</div>
+<div class="modal-body">
+  <div class="alert alert-danger" ng-show="errorMessage" ng-bind-html-unsafe="errorMessage">
+  </div>
+  <form role="form" novalidate>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="First Name" ng-model="registration.fname" required>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Last Name" ng-model="registration.lname" required>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <input type="email" class="form-control" placeholder="Email" ng-pattern="/[^@]+@[^@]+\.[a-zA-Z]{2,25}/" ng-model="registration.email" required>
+    </div>
+    <div class="form-group">
+      <input type="password" class="form-control" placeholder="Password" ng-minlength="8" ng-model="registration.password" tooltip="Must have at least 8 characters, one uppercase character and one number" tooltip-trigger="focus" tooltip-placement="left" required>
+      <p class="help-block">Must have at least 8 characters, one uppercase character and one number.</p>
+    </div>
+  </form>
+  <div pf-loading="registerLoading"></div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" ng-click="cancel()">Close</button>
+  <button type="button" class="btn btn-primary" ng-click="ok()">Register</button>
+</div>
